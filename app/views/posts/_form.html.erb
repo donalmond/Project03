@@ -3,8 +3,8 @@
 <%= f.label :title %>
 <%= f.text_field :title, :required => true %>
 
-<%= f.label :description %>
-<%= f.text_field :description, :required => true %>
+<%= f.label :description%>
+<%= f.text_field :description, :size=>"50", :maxlength=>"140" %>
 
 <%= f.label :image %>
 <%= f.file_field :image, :required => true %>

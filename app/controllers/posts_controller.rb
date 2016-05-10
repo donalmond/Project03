@@ -14,9 +14,9 @@ class PostsController < ApplicationController
   end
 
   def create
-    req = Cloudinary::Uploader.upload(params[:post]['image'],
-     :crop => :fill, :width => 1080, :height => 1080
-    )
+    req = Cloudinary::Uploader.upload(params[:post]['image'])
+     # This can be used to set up image resize on upload to cloudinary.
+     #:crop => :fill, :width => 1080, :height => 1080
     @post = current_user.posts.build(post_params)
     @post.update :image => req['url']
 
