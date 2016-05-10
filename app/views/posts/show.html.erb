@@ -7,6 +7,9 @@
 <p>
 <%= @post.user.name %>
 </p>
+<p>
+<%= image_tag @post.image %>
+</p>
 
 <%= link_to "Edit", edit_post_path(@post) %>
 <%= link_to "Destroy", post_path(@post), method: :delete, data: {confirm: "Are you sure?"} %>
