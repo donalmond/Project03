@@ -1,0 +1,6 @@
+<h1>Dangerzone</h1>
+<% @posts.each do |post| %>
+<h2><%= link_to post.title, post %></h2>
+<% end %>
+
+<%= link_to "Add New Post", new_post_path %>
