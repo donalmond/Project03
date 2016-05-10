@@ -2,18 +2,18 @@
 development:
   cloud_name: donalmond
   api_key: '776385951567748'
-  api_secret: <%= ENV['CLOUDINARY_SECRET_03'] %>
+  api_secret: <%= ENV['CLOUDINARY_PROJECT_03'] %>
   enhance_image_tag: true
   static_image_support: false
 production:
   cloud_name: donalmond
   api_key: '776385951567748'
-  api_secret: <%= ENV['CLOUDINARY_SECRET_03'] %>
+  api_secret: <%= ENV['CLOUDINARY_PROJECT_03'] %>
   enhance_image_tag: true
   static_image_support: true
 test:
   cloud_name: donalmond
   api_key: '776385951567748'
-  api_secret: <%= ENV['CLOUDINARY_SECRET_03'] %>
+  api_secret: <%= ENV['CLOUDINARY_PROJECT_03'] %>
   enhance_image_tag: true
   static_image_support: false

@@ -2,13 +2,13 @@
 <%= @post.title %>
 </h1>
 <p>
-<%= @post.description %>
-</p>
-<p>
 <%= @post.user.name %>
 </p>
 <p>
-<%= image_tag @post.image %>
+<%= image_tag @post.image, :width=>500, :crop=>"scale" %>
+</p>
+<p>
+<%= @post.description %>
 </p>
 
 <%= link_to "Edit", edit_post_path(@post) %>

@@ -1,6 +1,9 @@
 <h1>Dangerzone</h1>
 <% @posts.each do |post| %>
 <h2><%= link_to post.title, post %></h2>
+<a><%= image_tag post.image, :width=>300, :height=>450, :crop=>"fill" %> </a>
+<p><%= post.description %></p>
+
 <% end %>
 
 <%= link_to "Add New Post", new_post_path %>
