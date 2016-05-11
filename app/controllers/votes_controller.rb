@@ -35,7 +35,7 @@ class VotesController < ApplicationController
     end
 
     #raise "HellOnEarth"
-    respond_to do |format|
+    respond_to do |format|  
       # format.html { }
       format.json { render :json => {:vote => vote} }
     end
