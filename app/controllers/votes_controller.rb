@@ -3,13 +3,15 @@ class VotesController < ApplicationController
  # before_action :user_vote_exists?, only: [:create]
 
   def create
-
     @post = Post.find(params[:post_id])
-    @post.expiry_time # += 1 hour
+    @post.expiry_time + 1.hours
     @post.save
     @vote = Vote.new
     @vote.post_id = params[:post_id]
     @vote.user_id = current_user.id
+    @post.expiry_time + 1.hours
+    @post.save
+
     if @vote.save
       redirect_to @post
     else

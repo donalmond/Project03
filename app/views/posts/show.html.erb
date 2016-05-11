@@ -16,7 +16,7 @@ Number of votes: <%= @post.get_votes %>
 </p>
 
 <% if @post.votes.where(:user_id => current_user.id).empty?  %>
-  <%= link_to "Like", post_votes_path(@post), method: :post %>
+  <%= link_to "Like", post_votes_path(@post), method: :post %> 
 <% else %>
   <% if @vote.is_active? %>
     <%= link_to "Unlike", post_vote_path(@post, @vote), method: :patch %>

@@ -25,7 +25,7 @@ class PostsController < ApplicationController
     @post = current_user.posts.build(post_params)
     @post.update :image => req['url']
 
-    @post.expiry_time = Time.now # + 24 hours
+    @post.expiry_time = Time.now + 24.hours
 
 
     if @post.save
