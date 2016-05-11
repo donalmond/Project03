@@ -1,12 +1,17 @@
 class PostsController < ApplicationController
-  before_action :find_post, only: [:show, :update, :destroy]
+  before_action :find_post, only: [:show, :update, :destroy, :upvote]
   before_action :authenticate_user!, except: [:index, :show]
+
+# how to get the current votes for post with id 2
+# Post.find(2).votes.count
+
 
   def index
     @posts = Post.all.order("created_at DESC")
   end
 
   def show
+    @vote = Vote.find_by(:user_id => current_user.id)
   end
 
   def new
