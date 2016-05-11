@@ -1,14 +1,12 @@
 class VotesController < ApplicationController
 
-#  before_action :user_vote_exists?, only: [:create]
+ # before_action :user_vote_exists?, only: [:create]
 
   def create
 
-
-
-
-    raise "Hell"
     @post = Post.find(params[:post_id])
+    @post.expiry_time # += 1 hour
+    @post.save
     @vote = Vote.new
     @vote.post_id = params[:post_id]
     @vote.user_id = current_user.id
@@ -22,34 +20,39 @@ class VotesController < ApplicationController
 
   def update
 
-    v = Vote.where( :user_id => current_user.id ).where( :post_id => params[:id] )
-
-    if v.count > 0
-      # user has a vote for this post in the votes table; delete it (or them if multiple!)
-      Vote.where( :user_id => current_user.id ).where( :post_id => params[:id] ).destroy_all
-      vote = 0
+    @post = Post.find(params[:post_id])
+    @vote = Vote.find(params[:id])
+    if @vote.is_active?
+      @vote[:active] = false
     else
-      # no votes by this user for this post, add a vote
-      Vote.create(:user_id => current_user.id, :post_id => params[:id] )
-      vote = 1
+      @vote[:active] = true
     end
+    @vote.save
+    redirect_to @post
 
-    #raise "HellOnEarth"
-    respond_to do |format|  
-      # format.html { }
-      format.json { render :json => {:vote => vote} }
-    end
+
+
+
+    # v = Vote.where( :user_id => current_user.id ).where( :post_id => params[:id] )
+    #
+    # if v.count > 0
+    #   # user has a vote for this post in the votes table; delete it (or them if multiple!)
+    #   Vote.where( :user_id => current_user.id ).where( :post_id => params[:id] ).destroy_all
+    #   vote = 0
+    # else
+    #   # no votes by this user for this post, add a vote
+    #   Vote.create(:user_id => current_user.id, :post_id => params[:id] )
+    #   vote = 1
+    # end
+    #
+    # #raise "HellOnEarth"
+    # respond_to do |format|
+    #   # format.html { }
+    #   format.json { render :json => {:vote => vote} }
+    # end
 
     #
-    # @post = Post.find(params[:post_id])
-    # @vote = Vote.find(params[:id])
-    # if @vote.is_active?
-    #   @vote[:active] = false
-    # else
-    #   @vote[:active] = true
-    # end
-    # @vote.save
-    # redirect_to @post
+
   end
 
   def destroy
@@ -57,11 +60,10 @@ class VotesController < ApplicationController
 
   private
 
-  def user_vote_exists?
-    #v = Vote.where(:user_id=>1).where(:post_id=>2)
-    puts params.inspect
-    raise
-    # Check to see if vote by this user already exists for this post. If so, don't reset timer.
-  end
+  # def user_vote_exists?
+  #   #v = Vote.where(:user_id=>1).where(:post_id=>2)
+  #
+  #   # Check to see if vote by this user already exists for this post. If so, don't reset timer.
+  # end
 
 end
