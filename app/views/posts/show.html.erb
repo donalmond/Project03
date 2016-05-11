@@ -14,9 +14,11 @@
 <p>
 Number of votes: <%= @post.get_votes %>
 </p>
-
+<%
+=begin SERIOUSLY GET FUCKED
+%>
 <% if @post.votes.where(:user_id => current_user.id).empty?  %>
-  <%= link_to "Like", post_votes_path(@post), method: :post %> 
+  <%= link_to "Like", post_votes_path(@post), method: :post %>
 <% else %>
   <% if @vote.is_active? %>
     <%= link_to "Unlike", post_vote_path(@post, @vote), method: :patch %>
@@ -24,7 +26,10 @@ Number of votes: <%= @post.get_votes %>
     <%= link_to "Like", post_vote_path(@post, @vote), method: :patch %>
   <% end %>
 <% end %>
-<!-- <%= link_to "like", "javascript:;", id: 'sendvote', post_id: @post.id %> -->
+<%
+=end
+%>
+<%= link_to "like", "javascript:;", id: 'sendvote', post_id: @post.id %>
 
 <%= link_to "Edit", edit_post_path(@post) %>
 <%= link_to "Destroy", post_path(@post), method: :delete, data: {confirm: "Are you sure?"} %>

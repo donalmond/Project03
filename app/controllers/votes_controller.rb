@@ -3,16 +3,16 @@ class VotesController < ApplicationController
  # before_action :user_vote_exists?, only: [:create]
 
   def create
-    @post = Post.find(params[:post_id])
-    @post.expiry_time + 1.hours
-    @post.save
+
     @vote = Vote.new
     @vote.post_id = params[:post_id]
     @vote.user_id = current_user.id
-    @post.expiry_time + 1.hours
-    @post.save
+
 
     if @vote.save
+      @post = Post.find(params[:post_id])
+      @post.expiry_time + 1.hours
+      @post.save
       redirect_to @post
     else
       redirect_to root_path
@@ -22,36 +22,53 @@ class VotesController < ApplicationController
 
   def update
 
-    @post = Post.find(params[:post_id])
-    @vote = Vote.find(params[:id])
-    if @vote.is_active?
-      @vote[:active] = false
-    else
-      @vote[:active] = true
-    end
-    @vote.save
-    redirect_to @post
-
-
-
-
-    # v = Vote.where( :user_id => current_user.id ).where( :post_id => params[:id] )
+    # GO FUCK YOURSELF, BADGER!
     #
-    # if v.count > 0
-    #   # user has a vote for this post in the votes table; delete it (or them if multiple!)
-    #   Vote.where( :user_id => current_user.id ).where( :post_id => params[:id] ).destroy_all
-    #   vote = 0
+    # @post = Post.find(params[:post_id])
+    # @vote = Vote.find(params[:id])
+    # if @vote.is_active?
+    #   @vote[:active] = false
+    #   # @post.expiry_time + 1.hours
+    #
     # else
-    #   # no votes by this user for this post, add a vote
-    #   Vote.create(:user_id => current_user.id, :post_id => params[:id] )
-    #   vote = 1
-    # end
+    #   @vote[:active] = true
+    #   # @post.expiry_time - 1.hours
     #
-    # #raise "HellOnEarth"
-    # respond_to do |format|
-    #   # format.html { }
-    #   format.json { render :json => {:vote => vote} }
     # end
+    # @vote.save
+    # redirect_to @post
+    #
+
+    @post = Post.find(params[:id])
+
+    if @post.nil?
+
+      # no post found, we're fucked
+      vote = -1
+
+    else
+
+      v = Vote.where( :user_id => current_user.id ).where( :post_id => params[:id] )
+
+      if v.count > 0
+        # user has a vote for this post in the votes table; delete it (or them if multiple!)
+        Vote.where( :user_id => current_user.id ).where( :post_id => params[:id] ).destroy_all
+        vote = 0
+        @post.expiry_time -= 1.hours # @post.update(:expiry_time => @post.expiry_time - 1.hours)
+        @post.save
+      else
+        # no votes by this user for this post, add a vote
+        Vote.create(:user_id => current_user.id, :post_id => params[:id] )
+        vote = 1
+        @post.expiry_time += 1.hours
+        @post.save
+      end
+
+    end
+
+    respond_to do |format|
+      format.json { render :json => {:vote => vote} }
+    end
 
     #
 
