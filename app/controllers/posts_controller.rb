@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
   before_action :find_post, only: [:show, :update, :destroy, :upvote]
   before_action :authenticate_user!, except: [:index, :show]
+  before_action :check_expiration, only:[:index, :show]
 
 # how to get the current votes for post with id 2
 # Post.find(2).votes.count
@@ -11,7 +12,11 @@ class PostsController < ApplicationController
   end
 
   def show
+    if !Vote.find(params[:id])
+      redirect_to posts_path
+    else
     @vote = Vote.find_by(:user_id => current_user.id)
+    end
   end
 
   def new
@@ -26,7 +31,6 @@ class PostsController < ApplicationController
     @post.update :image => req['url']
 
     @post.expiry_time = Time.now + 24.hours
-
 
     if @post.save
       redirect_to @post
@@ -60,4 +64,22 @@ class PostsController < ApplicationController
   def post_params
     params.require(:post).permit(:title, :description, :image)
   end
+
+  # Checks to see whtehr we need to destroy post
+  def check_expiration
+    if params[:action] == 'show'
+      post = Post.find(params[:id])
+      if Time.now > post.expiry_time
+        post.destroy
+      end
+    else
+      posts = Post.all
+      posts.each do |post|
+        if Time.now > post.expiry_time
+          post.destroy
+        end
+      end
+    end
+  end
+
 end
