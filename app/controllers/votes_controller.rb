@@ -3,47 +3,32 @@ class VotesController < ApplicationController
  # before_action :user_vote_exists?, only: [:create]
 
   def create
-
-    @vote = Vote.new
-    @vote.post_id = params[:post_id]
-    @vote.user_id = current_user.id
-
-
-    if @vote.save
-      @post = Post.find(params[:post_id])
-      @post.expiry_time + 1.hours
-      @post.save
-      redirect_to @post
-    else
-      redirect_to root_path
-    end
+    #
+    # @vote = Vote.new
+    # @vote.post_id = params[:post_id]
+    # @vote.user_id = current_user.id
+    #
+    #
+    # if @vote.save
+    #   @post = Post.find(params[:post_id])
+    #   @post.expiry_time + 1.hours
+    #   @post.save
+    #   redirect_to @post
+    # else
+    #   redirect_to root_path
+    # end
   end
 
 
   def update
 
-    # GO FUCK YOURSELF, BADGER!
-    #
-    # @post = Post.find(params[:post_id])
-    # @vote = Vote.find(params[:id])
-    # if @vote.is_active?
-    #   @vote[:active] = false
-    #   # @post.expiry_time + 1.hours
-    #
-    # else
-    #   @vote[:active] = true
-    #   # @post.expiry_time - 1.hours
-    #
-    # end
-    # @vote.save
-    # redirect_to @post
-    #
+
 
     @post = Post.find(params[:id])
 
     if @post.nil?
 
-      # no post found, we're fucked
+      # no post found
       vote = -1
 
     else

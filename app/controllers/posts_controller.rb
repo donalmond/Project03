@@ -12,7 +12,7 @@ class PostsController < ApplicationController
   end
 
   def show
-    if !Vote.find(params[:id])
+    if Post.find(params[:id]).nil?
       redirect_to posts_path
     else
     @vote = Vote.find_by(:user_id => current_user.id)
