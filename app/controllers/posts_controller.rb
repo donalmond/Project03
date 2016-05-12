@@ -77,7 +77,7 @@ class PostsController < ApplicationController
     else
       posts = Post.all
       posts.each do |post|
-        if Time.now > post.expiry_time
+        if !post.expiry_time || Time.now > post.expiry_time
           post.destroy
         end
       end
