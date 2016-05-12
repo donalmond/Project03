@@ -36,7 +36,7 @@ class PostsController < ApplicationController
       flash[:success] = "Success!"
       redirect_to @post
     else
-      flash[:error] = @post.errors.full_messages
+      flash[:error] = "Fail"
       render 'new'
     end
   end
