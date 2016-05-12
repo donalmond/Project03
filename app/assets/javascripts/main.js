@@ -4,9 +4,6 @@ $(function(){
 
   $('#sendvote').click(function(e){
     e.preventDefault();
-    // alert($(this).attr('post_id'));
-
-
     console.log(  '/posts/' + $(this).attr('post_id') + '/vote'  );
     $.ajax({
       url: '/posts/' + $(this).attr('post_id') + '/vote',

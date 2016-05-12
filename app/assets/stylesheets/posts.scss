@@ -1,3 +1,13 @@
+
+body {
+width: 960px;
+margin: 0 auto;
+}
+
+.logo {
+  height:0.5;
+}
+
 .heart {
   fill: grey;
   position: relative;
@@ -11,3 +21,19 @@
 //   50% { transform: scale(1.3); }
 //   100% { transform: scale(1); }
 // }
+
+.white {
+  margin: 0 auto;
+  padding: 20px;
+  width: 540px;
+  background-color: rgba(157, 175, 181, 0.2);
+  border-radius: 25px;
+}
+
+.whiteindex {
+  margin: 0 auto;
+  padding: 20px;
+  width: 320px;
+  background-color: rgba(157, 175, 181, 0.2);
+  border-radius: 25px;
+}

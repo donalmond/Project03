@@ -33,8 +33,10 @@ class PostsController < ApplicationController
     @post.expiry_time = Time.now + 24.hours
 
     if @post.save
+      flash[:success] = "Success!"
       redirect_to @post
     else
+      flash[:error] = @post.errors.full_messages
       render 'new'
     end
   end

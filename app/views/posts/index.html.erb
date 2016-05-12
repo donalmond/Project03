@@ -1,7 +1,8 @@
-<h1>Dangerzone</h1>
 <% @posts.each do |post| %>
-<h2><%= link_to post.title, post %></h2>
+<!-- <h2><%= link_to post.title, post %></h2> -->
+<div class="whiteindex">
 <a><%= link_to (image_tag post.image, :width=>250, :height=>350, :crop=>"fill"), post %> </a>
+</div>
 <br>
 <% end %>
 

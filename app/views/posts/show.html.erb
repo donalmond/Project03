@@ -1,27 +1,37 @@
+
+<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+<ul class="nav navbar-nav">
+<%= link_to "Edit", edit_post_path(@post) %>
+<%= link_to "Destroy", post_path(@post), method: :delete, data: {confirm: "Are you sure?"} %>
+<%= link_to "Home", root_path %>
+</ul>
+</div>
+
+
 <h1>
 <%= @post.title %>
 </h1>
+<div class="white">
+
 <p>
-<%= @post.user.name %>
+Posted by: <%= @post.user.name %>, <%= @post.created_at %>
 </p>
 <p>
-<%= image_tag @post.image, :width=>500, height:700 %>
+<%= image_tag @post.image, :width=>500, height:500 %>
 </p>
 <p>
 <%= @post.description %>
 </p>
 
-<p>
-Number of votes: <%= @post.get_votes %>
-</p>
-
-
-
 <%= link_to '<svg class="heart" viewBox="0 0 32 29.6">
   <path d="M23.6,0c-3.4,0-6.3,2.7-7.6,5.6C14.7,2.7,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4c0,9.4,9.5,11.9,16,21.2
 	c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z"/>
 </svg>'.html_safe, "javascript:;", id: 'sendvote', post_id: @post.id %>
+</div>
 
-<%= link_to "Edit", edit_post_path(@post) %>
-<%= link_to "Destroy", post_path(@post), method: :delete, data: {confirm: "Are you sure?"} %>
-<%= link_to "Home", root_path %>
+
+<!--
+Fix Below
+<p>
+Number of votes: <%= @post.get_votes %>
+</p> -->
