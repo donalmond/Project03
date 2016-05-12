@@ -1,8 +1,37 @@
 
 body {
-width: 960px;
-margin: 0 auto;
+background-color: #fafafa;
+  font-family: proxima-nova, 'Helvetica Neue', Arial, Helvetica, sans-serif;
 }
+
+
+/* ## NAVBAR CUSTOMISATIONS ## */
+
+ .navbar-brand {
+  a {
+    color: #125688 !important;
+  }
+}
+
+
+.navbar-nav > li:hover {
+    background-color: red;
+}
+
+
+.navbar-default {
+  background-color: #fff;
+  height: 54px;
+  .navbar-nav li a {
+    color: #125688;
+  }
+}
+
+.navbar-container {
+  width: 70%;
+  margin: 0 auto;
+}
+
 
 .logo {
   height:0.5;
