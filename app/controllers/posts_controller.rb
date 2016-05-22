@@ -1,21 +1,20 @@
 class PostsController < ApplicationController
   before_action :find_post, only: [:show, :update, :destroy, :upvote]
   before_action :authenticate_user!, except: [:index, :show]
-  before_action :check_expiration, only:[:index, :show]
+  before_action :check_expiration, only: [:index, :show]
 
-# how to get the current votes for post with id 2
-# Post.find(2).votes.count
-
+  # how to get the current votes for post with id 2
+  # Post.find(2).votes.count
 
   def index
-    @posts = Post.all.order("created_at DESC")
+    @posts = Post.all.order('created_at DESC')
   end
 
   def show
     if Post.find(params[:id]).nil?
       redirect_to posts_path
     else
-    @vote = Vote.find_by(:user_id => current_user.id)
+      @vote = Vote.find_by(user_id: current_user.id)
     end
   end
 
@@ -25,18 +24,18 @@ class PostsController < ApplicationController
 
   def create
     req = Cloudinary::Uploader.upload(params[:post]['image'])
-     # This can be used to set up image resize on upload to cloudinary.
-     #:crop => :fill, :width => 1080, :height => 1080
+    # This can be used to set up image resize on upload to cloudinary.
+    #:crop => :fill, :width => 1080, :height => 1080
     @post = current_user.posts.build(post_params)
-    @post.update :image => req['url']
+    @post.update image: req['url']
 
     @post.expiry_time = Time.now + 24.hours
 
     if @post.save
-      flash[:success] = "Success!"
+      flash[:success] = 'Success!'
       redirect_to @post
     else
-      flash[:error] = "Fail"
+      flash[:error] = 'Fail'
       render 'new'
     end
   end
@@ -59,6 +58,7 @@ class PostsController < ApplicationController
   end
 
   private
+
   def find_post
     @post = Post.find(params[:id])
   end
@@ -71,17 +71,12 @@ class PostsController < ApplicationController
   def check_expiration
     if params[:action] == 'show'
       post = Post.find(params[:id])
-      if Time.now > post.expiry_time
-        post.destroy
-      end
+      post.destroy if Time.now > post.expiry_time
     else
       posts = Post.all
       posts.each do |post|
-        if !post.expiry_time || Time.now > post.expiry_time
-          post.destroy
-        end
+        post.destroy if !post.expiry_time || Time.now > post.expiry_time
       end
     end
   end
-
 end

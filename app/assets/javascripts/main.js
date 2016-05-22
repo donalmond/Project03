@@ -1,14 +1,13 @@
-
 var testvar = 1;
-$(function(){
+$(function() {
 
-  $('#sendvote').click(function(e){
+  $('#sendvote').click(function(e) {
     e.preventDefault();
-    console.log(  '/posts/' + $(this).attr('post_id') + '/vote'  );
+    console.log('/posts/' + $(this).attr('post_id') + '/vote');
     $.ajax({
       url: '/posts/' + $(this).attr('post_id') + '/vote',
       dataType: 'json',
-    }).done(function(data){
+    }).done(function(data) {
       // handle ajax response
 
       console.log(data.vote);
@@ -17,7 +16,7 @@ $(function(){
       if (vote === 1) {
         $('.heart').css('fill', 'red');
       } else {
-      $('.heart').css('fill', 'grey');
+        $('.heart').css('fill', 'grey');
       }
 
     });
