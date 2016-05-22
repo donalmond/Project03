@@ -20,7 +20,7 @@ https://onetimeapp.herokuapp.com/
 * Bootstrap-sass 3.3.6
 
 ## Deployed to:
-Heroku
+  Heroku
 
 ## Models:
 
