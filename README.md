@@ -6,7 +6,7 @@ https://onetimeapp.herokuapp.com/
 
 * Rails 4.3.6
 * Ruby 2.3.0
-* Jquery
+* jQuery
 * Ajax
 * Heroku
 * Html
@@ -20,7 +20,7 @@ https://onetimeapp.herokuapp.com/
 * Bootstrap-sass 3.3.6
 
 ## Deployed to:
-  Heroku
+* Heroku
 
 ## Models:
 
